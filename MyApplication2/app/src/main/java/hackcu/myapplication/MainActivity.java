@@ -28,7 +28,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void startbuttonOnClick(View v){
         Button button=(Button) v;
-        startActivity(new Intent(getApplicationContext(),GesturesActivity.class));
+        startActivity(new Intent(getApplicationContext(),Gesture2.class));
 
     }
 
