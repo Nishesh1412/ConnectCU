@@ -16,6 +16,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name=".calibration_activity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_calibration_activity"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name=".util.gesturesActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_gestures"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name=".GesturesActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_gestures"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,11 +1,14 @@
 package hackcu.myapplication;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -23,11 +26,16 @@ public class MainActivity extends ActionBarActivity {
         return true;
     }
 
-    public void buttonOnClick(View v){
+    public void startbuttonOnClick(View v){
         Button button=(Button) v;
-        ((Button) v).setText("Started");
+        ((Button) v).setText("Off");
+        startActivity(new Intent(getApplicationContext(),GesturesActivity.class));
     }
 
+    public void settingsbuttonONClick(View v) {
+        Button button=(Button) v;
+        startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
