@@ -21,22 +21,6 @@
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
-            android:name=".calibration_activity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_calibration_activity"
-            android:theme="@style/FullscreenTheme" >
-        </activity>
-        <activity
-            android:name=".util.gesturesActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_gestures"
-            android:theme="@style/FullscreenTheme" >
-        </activity>
-        <activity
-            android:name=".util.Gesture"
-            android:label="@string/title_activity_gesture" >
-        </activity>
-        <activity
             android:name=".Gesture2"
             android:label="@string/title_activity_gesture2" >
         </activity>

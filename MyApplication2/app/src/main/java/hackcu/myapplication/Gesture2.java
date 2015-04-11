@@ -30,10 +30,6 @@ public class Gesture2 extends ActionBarActivity {
             angVelocity[1] = event.values[1];
             angVelocity[2] = event.values[2];
             double omegaMagnitude = Math.sqrt(angVelocity[0] * angVelocity[0] + angVelocity[1] * angVelocity[1] + angVelocity[2] * angVelocity[2]);
-            /*
-            angVelocity[0] /= omegaMagnitude;
-            angVelocity[1] /= omegaMagnitude;
-            angVelocity[2] /= omegaMagnitude;*/
             double thetaOverTwo = omegaMagnitude * dT / 2.0;
             float sinThetaOverTwo = (float)Math.sin(thetaOverTwo);
             float cosThetaOverTwo = (float)Math.cos(thetaOverTwo);
@@ -72,46 +68,7 @@ public class Gesture2 extends ActionBarActivity {
             }
             timestamp = event.timestamp;
         }
-        /*
-        public void onSensorChanged(SensorEvent event) {
-            final float alpha = 0.8f;
-            float movement[] = new float[3];
-            if(event.sensor == gSensor){
-                gravity[0] = event.values[0];
-                gravity[1] = event.values[1];
-                gravity[2] = event.values[2];
-            }
-            // Isolate the force of gravity with the low-pass filter.
-            if(event.sensor == aSensor) {
-                movement[0] = event.values[0] - gravity[0];
-                movement[1] = event.values[1] - gravity[1];
-                movement[2] = event.values[2] - gravity[2];
-                if (Math.sqrt(movement[0] * movement[0] + movement[1] * movement[1] + movement[2] * movement[2]) > 20 || change == false) {
-                    change = !change;
-                    if (change == true) {
-                        if (Math.abs(movement[0]) > Math.abs(movement[1]) && Math.abs(movement[0]) > Math.abs(movement[2])) {
-                            if (movement[0] < 0) {
-                                Log.v("Gesture", "LEFT");
-                            } else {
-                                Log.v("Gesture", "RIGHT");
-                            }
-                        } else if (Math.abs(movement[1]) > Math.abs(movement[0]) && Math.abs(movement[1]) > Math.abs(movement[2])) {
-                            if (movement[1] < 0) {
-                                Log.v("Gesture", "DOWN");
-                            } else {
-                                Log.v("Gesture", "DOWN");
-                            }
-                        } else {
-                            if (movement[2] < 0) {
-                                Log.v("Gesture", "BACKWARD");
-                            } else {
-                                Log.v("Gesture", "FORWARD");
-                            }
-                        }
-                    }
-                }
-            }
-          }*/
+
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
         }
     };
@@ -120,8 +77,6 @@ public class Gesture2 extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
         mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE), SensorManager.SENSOR_DELAY_GAME);
-        //mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY), SensorManager.SENSOR_DELAY_GAME);
-        //mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_GAME);
     }
 
     @Override
@@ -138,15 +93,8 @@ public class Gesture2 extends ActionBarActivity {
         currentPos[1] = 1;
         currentPos[2] = 1;
         timestamp = System.currentTimeMillis() * 1000000;
-        //gravity[0] = 0;
-        //gravity[1] = 0;
-        //gravity[2] = 0;
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE), SensorManager.SENSOR_DELAY_GAME);
-        //aSensor= mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        //gSensor= mSensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
-        //mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY), SensorManager.SENSOR_DELAY_UI);
-        //mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_UI);
         Log.v("Gesture2", "OnCreate");
     }
 
