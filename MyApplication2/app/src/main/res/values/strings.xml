@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">Magic Wand</string>
+    <string name="welcome_message">Welcome to Magic Wand!</string>
+
     <string name="action_settings">Settings</string>
+
+    <string name="start_display">Started</string>
+
+
+
     <string name="title_activity_calibration_activity">calibration_activity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_gestures">gesturesActivity</string>
+    <string name="start_button" />
+
     <string name="title_activity_gesture">Gesture</string>
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_gesture2">Gesture2</string>
+    <string name="title_activity_gesture3">Gesture3Activity</string>
+
+    <string name="hello_world">Hello world!</string>
+
 
 </resources>

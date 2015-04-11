@@ -33,18 +33,16 @@
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name=".GesturesActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_gestures"
-            android:theme="@style/FullscreenTheme" >
-        </activity>
-        <activity
             android:name=".util.Gesture"
             android:label="@string/title_activity_gesture" >
         </activity>
         <activity
             android:name=".Gesture2"
             android:label="@string/title_activity_gesture2" >
+        </activity>
+        <activity
+            android:name=".Gesture3Activity"
+            android:label="@string/title_activity_gesture3" >
         </activity>
     </application>
 
