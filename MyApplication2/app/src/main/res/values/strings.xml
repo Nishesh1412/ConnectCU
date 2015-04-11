@@ -17,6 +17,9 @@
 
     <string name="title_activity_gesture">Gesture</string>
     <string name="title_activity_gesture2">Gesture2</string>
+    <string name="title_activity_gesture3">Gesture3Activity</string>
+
+    <string name="hello_world">Hello world!</string>
 
 
 </resources>

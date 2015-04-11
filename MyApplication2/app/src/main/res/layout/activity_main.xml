@@ -11,12 +11,11 @@
 
 
     <Button
+        android:background="@drawable/rounded_blue"
         android:layout_width="190dp"
         android:layout_height="70dp"
-        android:background="#d3d3d3"
         android:text="Start"
-        android:textStyle="bold"
-        android:textSize="20dp"
+        android:textSize="30dp"
         android:gravity="center"
         android:id="@+id/start_button"
         style="?metaButtonBarButtonStyle"
@@ -24,18 +23,24 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:capitalize="words"
-        android:shadowColor="@color/background_material_light" />
+        android:shadowColor="@color/background_material_light"
+        android:textStyle="normal|bold" />
 
     <Button
+        android:background="@drawable/rounded_blue"
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="35dp"
+        android:textSize="15dp"
+        android:gravity="center"
         android:text="Settings"
         android:id="@+id/settings_button"
         android:onClick="settingsbuttonONClick"
         android:layout_marginTop="77dp"
         android:layout_below="@+id/start_button"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="false"
+        android:textStyle="normal" />
 
     <TextView
         android:layout_width="wrap_content"

@@ -8,32 +8,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import hackcu.myapplication.R;
 
-public class MainActivity extends ActionBarActivity {
+public class Gesture3Activity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_gesture3);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_gesture3, menu);
         return true;
     }
 
-    public void startbuttonOnClick(View v){
-        Button button=(Button) v;
-        startActivity(new Intent(getApplicationContext(),Gesture3Activity.class));
-
-    }
-
-    public void settingsbuttonONClick(View v) {
-        Button button=(Button) v;
-        startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
-    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
