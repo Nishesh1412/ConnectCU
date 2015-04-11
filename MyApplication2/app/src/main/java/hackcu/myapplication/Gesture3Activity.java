@@ -1,16 +1,19 @@
 package hackcu.myapplication;
 
 import android.content.Intent;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import hackcu.myapplication.R;
 
 public class Gesture3Activity extends ActionBarActivity {
+    boolean appear = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,23 @@ public class Gesture3Activity extends ActionBarActivity {
         return true;
     }
 
+    /*public boolean appear(){
+        ImageView imgView = (ImageView)findViewById(R.id.spark_1);
+        imgView.setVisibility(View.INVISIBLE);
+        return false;
+    }*/
+
+    public void sparkOnClick(View View){
+        ImageView imgView = (ImageView)findViewById(R.id.shield_2);
+        if (appear == false){
+            imgView.setVisibility(View.VISIBLE);
+            appear = true;
+        }
+        else{
+            imgView.setVisibility(View.INVISIBLE);
+            appear = false;
+        }
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

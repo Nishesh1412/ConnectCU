@@ -44,6 +44,10 @@
             android:name=".Gesture3Activity"
             android:label="@string/title_activity_gesture3" >
         </activity>
+        <activity
+            android:name=".Gesture3_1Activity"
+            android:label="@string/title_activity_gesture3_1" >
+        </activity>
     </application>
 
 </manifest>
