@@ -1,11 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Magic Wand</string>
-
     <string name="action_settings">Settings</string>
-
     <string name="title_activity_calibration_activity">calibration_activity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-
     <string name="title_activity_gestures">gesturesActivity</string>
+    <string name="title_activity_gesture">Gesture</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_gesture2">Gesture2</string>
+
 </resources>
