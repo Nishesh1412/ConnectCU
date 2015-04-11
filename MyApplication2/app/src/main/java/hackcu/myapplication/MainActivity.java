@@ -28,8 +28,8 @@ public class MainActivity extends ActionBarActivity {
 
     public void startbuttonOnClick(View v){
         Button button=(Button) v;
-        ((Button) v).setText("Off");
         startActivity(new Intent(getApplicationContext(),GesturesActivity.class));
+
     }
 
     public void settingsbuttonONClick(View v) {
