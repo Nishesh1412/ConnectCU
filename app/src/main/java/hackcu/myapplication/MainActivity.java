@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 
 public class MainActivity extends Activity {
@@ -14,6 +16,10 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
     }
 
+    public void buttonOnClick(View v) {
+        //action performed when the button is clicked
+        Button button=(Button) v;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -30,8 +36,15 @@ public class MainActivity extends Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+
+        switch(id){
+            case R.id.calibration:
+
+                break;
+
+            case R.id.exit:
+                finish();
+                System.exit(0);
         }
 
         return super.onOptionsItemSelected(item);

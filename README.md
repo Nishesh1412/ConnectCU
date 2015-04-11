@@ -1,2 +1,0 @@
-# ConnectCU
-HackCU Hackathon Project
