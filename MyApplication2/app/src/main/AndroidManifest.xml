@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="hackcu.myapplication" >
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,12 +24,16 @@
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
-            android:name=".Gesture2"
-            android:label="@string/title_activity_gesture2" >
-        </activity>
-        <activity
             android:name=".Gesture3Activity"
             android:label="@string/title_activity_gesture3" >
+        </activity>
+        <activity
+            android:name=".DeviceListActivity"
+            android:label="@string/title_activity_device_list" >
+        </activity>
+        <activity
+            android:name=".ConnectTest"
+            android:label="@string/title_activity_connect_test" >
         </activity>
     </application>
 

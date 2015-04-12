@@ -1,11 +1,17 @@
 package hackcu.myapplication;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothServerSocket;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -17,6 +23,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.UUID;
+
 import hackcu.myapplication.R;
 
 public class Gesture3Activity extends ActionBarActivity {
@@ -27,6 +38,7 @@ public class Gesture3Activity extends ActionBarActivity {
     private static final float NS2S = 1.0f / 1000000000.0f;
     private float currentPos[] = new float[3];
     private int currentPic = 0;
+    Handler mHandler = new Handler();
 
     private final SensorEventListener mSensorListener = new SensorEventListener(){
         public void onSensorChanged(SensorEvent event) {
@@ -56,7 +68,7 @@ public class Gesture3Activity extends ActionBarActivity {
                 //Log.d("deltaRotationVector", "Value " + deltaRotationVector[2]);
                 if (Math.abs(deltaRotationVector[0]) > Math.abs(deltaRotationVector[1]) && Math.abs(deltaRotationVector[0]) > Math.abs(deltaRotationVector[2])) {
                     if (deltaRotationVector[0] < 0) {
-                        setSpark(R.id.spark_1);
+                        setSpark(R.id.shield_2);
                         Log.v("Gesture", "Lean Away");
                     } else {
                         setSpark(R.id.shield_1);
@@ -75,7 +87,7 @@ public class Gesture3Activity extends ActionBarActivity {
                         setSpark(R.id.spark_4);
                         Log.v("Gesture", "Lean Right");
                     } else {
-                        setSpark(R.id.spark_5);
+                        setSpark(R.id.spark_1);
                         Log.v("Gesture", "Lean Left");
                     }
                 }
