@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,10 +27,6 @@
         <activity
             android:name=".Gesture3Activity"
             android:label="@string/title_activity_gesture3" >
-        </activity>
-        <activity
-            android:name=".DeviceListActivity"
-            android:label="@string/title_activity_device_list" >
         </activity>
         <activity
             android:name=".ConnectTest"

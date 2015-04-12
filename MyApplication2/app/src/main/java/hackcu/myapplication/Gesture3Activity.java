@@ -39,8 +39,19 @@ public class Gesture3Activity extends ActionBarActivity {
     private float currentPos[] = new float[3];
     private int currentPic = 0;
     Handler mHandler = new Handler();
+    private static final int REQUEST_ENABLE_BT = 1;
+    private BluetoothAdapter btAdapter = null;
+    private BluetoothSocket btSocket = null;
+    private OutputStream outStream = null;
+    protected hackcu.myapplication.MyApplication app;
+    // Well known SPP UUID
+    private static final UUID MY_UUID =
+            UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee");
 
-    private final SensorEventListener mSensorListener = new SensorEventListener(){
+    // Insert your server's MAC address
+    private static String address = "74:E5:43:1F:48:84";
+
+    private final SensorEventListener mSensorListener = new SensorEventListener() {
         public void onSensorChanged(SensorEvent event) {
             final float alpha = 0.8f;
             final float dT = (event.timestamp - timestamp) * NS2S;
@@ -51,8 +62,8 @@ public class Gesture3Activity extends ActionBarActivity {
             angVelocity[2] = event.values[2];
             double omegaMagnitude = Math.sqrt(angVelocity[0] * angVelocity[0] + angVelocity[1] * angVelocity[1] + angVelocity[2] * angVelocity[2]);
             double thetaOverTwo = omegaMagnitude * dT / 2.0;
-            float sinThetaOverTwo = (float)Math.sin(thetaOverTwo);
-            float cosThetaOverTwo = (float)Math.cos(thetaOverTwo);
+            float sinThetaOverTwo = (float) Math.sin(thetaOverTwo);
+            float cosThetaOverTwo = (float) Math.cos(thetaOverTwo);
             deltaRotationVector[0] = sinThetaOverTwo * angVelocity[0];
             deltaRotationVector[1] = sinThetaOverTwo * angVelocity[1];
             deltaRotationVector[2] = sinThetaOverTwo * angVelocity[2];
@@ -63,31 +74,28 @@ public class Gesture3Activity extends ActionBarActivity {
             currentPos[1] = currentPos[1] * deltaRotationMatrix[3] + currentPos[1] * deltaRotationMatrix[4] + currentPos[1] * deltaRotationMatrix[5] + deltaRotationVector[1];
             currentPos[2] = currentPos[2] * deltaRotationMatrix[6] + currentPos[2] * deltaRotationMatrix[7] + currentPos[2] * deltaRotationMatrix[8] + deltaRotationVector[2];
             if (Math.sqrt(deltaRotationVector[0] * deltaRotationVector[0] + deltaRotationVector[1] * deltaRotationVector[1] + deltaRotationVector[2] * deltaRotationVector[2]) > .5) {
-                //Log.d("deltaRotationVector", "Value " + deltaRotationVector[0]);
-                //Log.d("deltaRotationVector", "Value " + deltaRotationVector[1]);
-                //Log.d("deltaRotationVector", "Value " + deltaRotationVector[2]);
                 if (Math.abs(deltaRotationVector[0]) > Math.abs(deltaRotationVector[1]) && Math.abs(deltaRotationVector[0]) > Math.abs(deltaRotationVector[2])) {
                     if (deltaRotationVector[0] < 0) {
-                        setSpark(R.id.shield_2);
+                        setSpark(R.id.shield_2, "a");
                         Log.v("Gesture", "Lean Away");
                     } else {
-                        setSpark(R.id.shield_1);
+                        setSpark(R.id.shield_1, "b");
                         Log.v("Gesture", "Lean Towards");
                     }
                 } else if (Math.abs(deltaRotationVector[1]) > Math.abs(deltaRotationVector[0]) && Math.abs(deltaRotationVector[1]) > Math.abs(deltaRotationVector[2])) {
                     if (deltaRotationVector[1] < 0) {
-                        setSpark(R.id.spark_2);
+                        setSpark(R.id.spark_2,"c");
                         Log.v("Gesture", "Twist Left");
                     } else {
-                        setSpark(R.id.spark_3);
+                        setSpark(R.id.spark_3,"d");
                         Log.v("Gesture", "Twist Right");
                     }
                 } else {
                     if (deltaRotationVector[2] < 0) {
-                        setSpark(R.id.spark_4);
+                        setSpark(R.id.spark_4,"e");
                         Log.v("Gesture", "Lean Right");
                     } else {
-                        setSpark(R.id.spark_1);
+                        setSpark(R.id.spark_1,"f");
                         Log.v("Gesture", "Lean Left");
                     }
                 }
@@ -113,8 +121,9 @@ public class Gesture3Activity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gesture3);
+        Log.v("Gesture3", "OnCreate");
         //int id = t.getResourceId(R.styleable.Viewee_linkedView, 0);
         currentPos[0] = 1;
         currentPos[1] = 1;
@@ -123,6 +132,37 @@ public class Gesture3Activity extends ActionBarActivity {
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE), SensorManager.SENSOR_DELAY_GAME);
         Log.v("Gesture2", "OnCreate");
+        app = (MyApplication)getApplication();
+        btAdapter = BluetoothAdapter.getDefaultAdapter();
+        Log.v("onCreate", "Adapter");
+        CheckBTState();
+        super.onResume();
+        Log.v("MainActivity", " Resume");
+        // Set up a pointer to the remote node using it's address.
+        BluetoothDevice device = btAdapter.getRemoteDevice(address);
+        // Two things are needed to make a connection:
+        //   A MAC address, which we got above.
+        //   A Service ID or UUID.  In this case we are using the
+        //     UUID for SPP.
+        try {
+            btSocket = device.createRfcommSocketToServiceRecord(MY_UUID);
+        } catch (IOException e) {
+            Log.v("MainActivity","Failed outta Rfcomm");
+        }
+        Log.v("MainActivity", " btSocket " + btSocket);
+        // Discovery is resource intensive.  Make sure it isn't going on
+        // when you attempt to connect and pass your message.
+        btAdapter.cancelDiscovery();
+        app.setSocket(btSocket);
+        // Establish the connection.  This will block until it connects.
+        try {
+            btSocket.connect();
+        } catch (IOException e) {
+            try {
+                btSocket.close();
+            } catch (IOException e2) {
+            }
+        }
     }
 
     @Override
@@ -138,17 +178,18 @@ public class Gesture3Activity extends ActionBarActivity {
     }*/
 
 
-    public void setSpark(int pic) {
+    public void setSpark(int pic, String let) {
         Log.v("SetSpark", "entered");
-        if(currentPic != pic) {
+        if (currentPic != pic) {
             ImageView imgView = (ImageView) findViewById(pic);
             View View = findViewById(R.id.wand_trans);
-            if(currentPic!= 0) {
+            if (currentPic != 0) {
                 ImageView currImgView = (ImageView) findViewById(currentPic);
                 currImgView.setVisibility(View.INVISIBLE);
             }
             //imgView.setVisibility(View.INVISIBLE);
             currentPic = pic;
+            sendMessage(let);
             imgView.setVisibility(View.VISIBLE);
         }
     }
@@ -180,4 +221,45 @@ public class Gesture3Activity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void sendMessage(String message) {
+        // Create a data stream so we can talk to server.
+
+        try{
+            outStream = btSocket.getOutputStream();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
+        byte[] msgBuffer = message.getBytes();
+        try
+        {
+            outStream.write(msgBuffer);
+        }
+
+        catch(IOException e)
+            {
+            String msg = "In onResume() and an exception occurred during write: " + e.getMessage();
+            //    msg = msg + ".\n\nUpdate your server address from 00:00:00:00:00:00 to the correct address on line 37 in the java code";
+            //msg = msg + ".\n\nCheck that the SPP UUID exists on server.\n\n";
+        }
+    }
+
+    private void CheckBTState() {
+        // Check for Bluetooth support and then check to make sure it is turned on
+        // Emulator doesn't support Bluetooth and will return null
+        if (btAdapter == null) {
+            Log.v("CheckBTState", "Null");
+        } else {
+            if (btAdapter.isEnabled()) {
+                Log.v("CheckBTState", "Enabled");
+            } else {
+                //Prompt user to turn on Bluetooth
+                Intent enableBtIntent = new Intent(btAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            }
+        }
+    }
+
 }

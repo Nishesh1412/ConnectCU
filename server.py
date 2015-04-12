@@ -28,12 +28,13 @@ print client_info
 print("Accepted connection from ", client_info)
 
 read = False
-
+words = ""
 try:
-	while read != True:
+	while words != "exit":
 		while True:
 			data = client_sock.recv(1024)
 			if len(data) == 0: break
+			words = str(data)
 			read = True
 			print("received [%s]" % data)
 except IOError as e:
