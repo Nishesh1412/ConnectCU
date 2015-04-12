@@ -5,6 +5,7 @@
 # $Id: rfcomm-server.py 518 2007-08-10 07:20:07Z albert $
 
 from bluetooth import *
+from keyboardinput import AltTab
 
 server_sock=BluetoothSocket( RFCOMM )
 server_sock.bind(("",PORT_ANY))
@@ -28,13 +29,14 @@ print client_info
 print("Accepted connection from ", client_info)
 
 read = False
-words = ""
+word = ""
 try:
-	while words != "exit":
+	while word != "exit":
 		while True:
 			data = client_sock.recv(1024)
 			if len(data) == 0: break
-			words = str(data)
+			word = str(data)
+			AltTab(word)
 			read = True
 			print("received [%s]" % data)
 except IOError as e:
